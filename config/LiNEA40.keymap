@@ -56,7 +56,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,
+            //スクロール方向を逆転,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -151,10 +151,10 @@
 
         MARK {
             bindings = <
-&kp TILDE  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4                                 &kp NUMBER_9           &kp NUMBER_0       &kp MINUS      &kp EQUAL         &kp NON_US_BACKSLASH
-&trans     &trans        &trans        &trans        &kp NUMBER_5                                 &kp NUMBER_8           &kp LS(SEMICOLON)  &kp SQT        &kp LEFT_BRACKET  &kp RIGHT_BRACKET
-&trans     &trans        &trans        &trans        &kp NUMBER_6                                 &kp NUMBER_7           &trans             &kp LS(COMMA)  &kp LS(PERIOD)    &kp LS(SLASH)
-&kp LCTRL  &kp LEFT_ALT  &to 1         &trans        &mt LEFT_SHIFT SPACE  &trans    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE                     &trans         &trans            &trans
+&kp TILDE  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4                                 &kp NUMBER_9           &kp NUMBER_0   &kp MINUS  &kp EQUAL         &kp NON_US_BACKSLASH
+&trans     &trans        &trans        &trans        &kp NUMBER_5                                 &kp NUMBER_8           &kp SEMICOLON  &kp SQT    &kp LEFT_BRACKET  &kp RIGHT_BRACKET
+&trans     &trans        &trans        &trans        &kp NUMBER_6                                 &kp NUMBER_7           &trans         &kp COMMA  &kp PERIOD        &kp SLASH
+&kp LCTRL  &kp LEFT_ALT  &to 1         &trans        &mt LEFT_SHIFT SPACE  &trans    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE                 &trans     &trans            &trans
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
