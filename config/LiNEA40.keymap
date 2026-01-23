@@ -133,9 +133,9 @@
 
         MOUSE {
             bindings = <
-&trans     &trans        &trans  &trans  &trans                                                         &trans                 &trans    &trans  &trans     &trans
-&trans     &trans        &trans  &trans  &trans                                                         &trans                 &mkp MB1  &trans  &mkp RCLK  &kp BACKSPACE
-&trans     &trans        &trans  &trans  &trans                                                         &trans                 &trans    &trans  &trans     &kp ENTER
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &trans
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &mkp MB1  &trans  &mkp RCLK  &kp BACKSPACE
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &kp ENTER
 &kp LCTRL  &kp LEFT_ALT  &trans  &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE            &trans  &trans     &trans
             >;
         };
