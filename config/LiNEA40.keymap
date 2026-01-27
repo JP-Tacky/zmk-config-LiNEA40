@@ -146,7 +146,7 @@
 &kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I   &kp O   &kp P
 &kp A      &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J  &kp K   &kp L   &kp BACKSPACE
 &kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M  &trans  &trans  &kp ENTER
-&kp LCTRL  &kp LALT  &to 1  &msc MOVE_Y 10 &mt LSHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE         &trans  &trans  &kp LEFT_WIN
+&kp LCTRL  &kp LALT  &to 1  &msc MOVE_Y 10 &mt LSHIFT KC_SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RSHIFT KC_SPACE         &trans  &trans  &kp LEFT_WIN
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -157,7 +157,7 @@
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &trans
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &mkp MB1  &trans  &mkp RCLK  &kp BACKSPACE
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &kp ENTER
-&kp LCTRL  &kp LEFT_ALT  &trans  &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE            &trans  &trans     &trans
+&kp LCTRL  &kp LEFT_ALT  &trans  &trans  &mt LSHIFT KC_SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RSHIFT KC_SPACE            &trans  &trans     &trans
             >;
         };
 
@@ -166,7 +166,7 @@
 &kp ESC       &kp F1        &kp F2  &kp F3           &kp F4                                   &kp F9                 &kp F10         &kp F11       &kp F12    &trans
 &kp TAB       &trans        &trans  &trans           &kp F5                                   &kp F8                 &trans          &kp UP_ARROW  &trans     &trans
 &kp CAPSLOCK  &trans        &trans  &trans           &kp F6                                   &kp F7                 &kp LEFT_ARROW  &kp DOWN      &kp RIGHT  &trans
-&kp LCTRL     &kp LEFT_ALT  &to 1   &msc MOVE_X 10  &mt LSHIFT SPACE  &lt 3 LANG2    &trans  &mt RIGHT_SHIFT SPACE                  &trans        &trans     &trans
+&kp LCTRL     &kp LEFT_ALT  &to 1   &msc MOVE_X 10  &mt LSHIFT KC_SPACE  &lt 3 LANG2    &trans  &mt RSHIFT KC_SPACE                  &trans        &trans     &trans
             >;
         };
 
@@ -175,7 +175,7 @@
 &kp TILDE  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4                                 &kp NUMBER_9           &kp NUMBER_0   &kp MINUS  &kp EQUAL         &kp NON_US_BACKSLASH
 &trans     &trans        &trans        &trans        &kp NUMBER_5                                 &kp NUMBER_8           &kp SEMICOLON  &kp SQT    &kp LEFT_BRACKET  &kp RIGHT_BRACKET
 &trans     &trans        &trans        &trans        &kp NUMBER_6                                 &kp NUMBER_7           &trans         &kp COMMA  &kp PERIOD        &kp SLASH
-&kp LCTRL  &kp LEFT_ALT  &to 1         &trans        &mt LEFT_SHIFT SPACE  &trans    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE                 &trans     &trans            &trans
+&kp LCTRL  &kp LEFT_ALT  &to 1         &trans        &mt LSHIFT KC_SPACE  &trans    &lt 2 LANG1  &mt RSHIFT KC_SPACE                 &trans     &trans            &trans
             >;
         };
 
