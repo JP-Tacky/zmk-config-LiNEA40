@@ -157,7 +157,7 @@
 &kp LCTRL  &kp LEFT_ALT  &to 1         &trans        &mt LEFT_SHIFT SPACE  &trans    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE                 &trans     &trans            &trans
             >;
 
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
+             sensor-bindings = <&re_kp LC(MINUS) LC(PLUS)>;
         };
 
         //4
