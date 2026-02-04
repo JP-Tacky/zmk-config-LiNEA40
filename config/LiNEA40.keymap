@@ -12,8 +12,6 @@
 #define MOUSE 1
 #define WIN_MARK 2
 #define CURSOR 3
-#define FUNCTION 4
-#define SCROLL 5
 #define WIRELESS 6
 #define IPAD_DEF 7
 #define IPAD_MARK 8
@@ -35,16 +33,6 @@
 };
 
 / {
-    input_processors {
-        zip_wheel_scaler: zip_wheel_scaler {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>;
-            track-remainders;
-        };
-    };
-
     macros {
         sel_win: sel_win {
             compatible = "zmk,behavior-macro";
@@ -65,8 +53,6 @@
         InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
         CenterClick { bindings = <&mkp MB3>; key-positions = <17 16>; };
         RightClick { bindings = <&mkp MB2>; key-positions = <18 17>; };
-        PrevClick { bindings = <&mkp MB4>; key-positions = <27 28>; };
-        ClickNext { bindings = <&mkp MB5>; key-positions = <26 27>; };
     };
 
     behaviors {
@@ -89,20 +75,20 @@
         // 0: Windows Default
         default_layer {
             bindings = <
-&kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I   &kp O   &kp P
-&kp A      &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J  &kp K   &kp L   &kp BACKSPACE
-&kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M  &trans  &trans  &kp ENTER
+&kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U    &kp I     &kp O      &kp P
+&kp A      &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J    &kp K     &kp L      &kp BACKSPACE
+&kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M    &mkp MB1  &mkp MB2   &kp ENTER
 &kp LCTRL  &kp LALT  &to 1  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE  &to WIRELESS &trans  &kp LEFT_WIN
 >;
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (Auto-activated by trackball)
+        // 1: MOUSE (J/K/Lは通常キーに戻し、Mの横でクリック操作)
         MOUSE_LAYER {
             bindings = <
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &mkp MB1  &mkp MB3  &mkp MB2   &kp BACKSPACE
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &kp ENTER
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &kp J     &kp K     &kp L      &kp BACKSPACE
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &mkp MB1  &mkp MB2   &kp ENTER
 &kp LCTRL  &kp LEFT_ALT  &to 0   &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE  &trans    &trans    &trans
 >;
         };
@@ -129,9 +115,6 @@
             sensor-bindings = <&re_kp LC(MINUS) LC(PLUS)>;
         };
 
-        FUNCTION_LAYER { bindings = <&none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none>; };
-        SCROLL_LAYER { bindings = <&none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none &none>; };
-
         // 6: WIRELESS
         WIRELESS_LAYER {
             bindings = <
@@ -145,9 +128,9 @@
         // 7: iPad Default
         IPAD_DEF_LAYER {
             bindings = <
-&kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I   &kp O      &kp P
-&kp A      &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J  &kp K   &kp L      &kp BACKSPACE
-&kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M  &trans  &trans     &kp ENTER
+&kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U    &kp I     &kp O      &kp P
+&kp A      &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J    &kp K     &kp L      &kp BACKSPACE
+&kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M    &mkp MB1  &mkp MB2   &kp ENTER
 &kp LCMD   &kp LALT  &to 1  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE  &to WIRELESS &trans  &kp LCTRL
 >;
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -163,26 +146,5 @@
 >;
             sensor-bindings = <&re_kp LG(MINUS) LG(PLUS)>;
         };
-    };
-};
-
-&msc_input_listener {
-    speed_up {
-        layers = <FUNCTION>;
-        input-processors = <&zip_wheel_scaler 3 1>; 
-    };
-};
-
-&trackball_listener {
-    // automouseのプロパティを互換性重視で修正
-    automouse {
-        layers = <MOUSE>;
-    };
-
-    scroller {
-        layers = <SCROLL>;
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
     };
 };
