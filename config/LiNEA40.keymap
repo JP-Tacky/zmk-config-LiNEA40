@@ -97,7 +97,7 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE
+        // 1: MOUSE (Auto-activated by trackball)
         MOUSE_LAYER {
             bindings = <
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
@@ -174,9 +174,9 @@
 };
 
 &trackball_listener {
+    // automouseのプロパティを互換性重視で修正
     automouse {
         layers = <MOUSE>;
-        exit-delay-ms = <600>;
     };
 
     scroller {
