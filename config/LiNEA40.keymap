@@ -18,23 +18,20 @@
 #define IPAD_DEF 7
 #define IPAD_MARK 8
 
-// mouse cursor
-&mmv {
-    delay-ms = <20>;
-    trigger-period-ms = <5>;
-    time-to-max-speed-ms = <100>;
-    acceleration-exponent = <2>;
-};
-
-// mouse scroll
-&msc {
-    delay-ms = <3>;
-    trigger-period-ms = <3>;
-    time-to-max-speed-ms = <100>;
-    acceleration-exponent = <0>;
-};
-
+/* トラックボール操作時にMOUSEレイヤーを自動起動するプロセッサ */
 / {
+    zip_temp_layer: zip_temp_layer {
+        compatible = "zmk,input-processor-temp-layer";
+        #input-processor-cells = <1>;
+        layer-id = <MOUSE>;
+        timeout-ms = <500>; // 離してから0.5秒間レイヤーを維持
+    };
+
+    /* LiNEA40のトラックボールデバイスにプロセッサを適用 */
+    &trackball {
+        input-processors = <&zip_temp_layer MOUSE>;
+    };
+
     input_processors {
         zip_wheel_scaler: zip_wheel_scaler {
             compatible = "zmk,input-processor-scaler";
@@ -97,13 +94,13 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (Win/iPad共通)
+        // 1: MOUSE (自動起動レイヤー)
         MOUSE_LAYER {
             bindings = <
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &trans
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &mkp MB1  &trans  &mkp MB2   &kp BACKSPACE
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &kp ENTER
-&kp LCTRL  &kp LEFT_ALT  &to 0   &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE  &trans    &trans  &trans
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &mkp MB1  &kp K     &mkp MB2   &kp BACKSPACE
+&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &kp ENTER
+&kp LCTRL  &kp LEFT_ALT  &to 0   &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE  &trans    &trans    &trans
 >;
         };
 
@@ -163,21 +160,5 @@
 >;
             sensor-bindings = <&re_kp LG(MINUS) LG(PLUS)>;
         };
-    };
-};
-
-&msc_input_listener {
-    speed_up {
-        layers = <FUNCTION>;
-        input-processors = <&zip_wheel_scaler 3 1>; 
-    };
-};
-
-&trackball_listener {
-    scroller {
-        layers = <SCROLL>;
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
     };
 };
