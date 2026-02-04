@@ -18,21 +18,16 @@
 #define IPAD_DEF 7
 #define IPAD_MARK 8
 
-/* トラックボール操作時にMOUSEレイヤーを自動起動するプロセッサ */
 / {
-    zip_temp_layer: zip_temp_layer {
-        compatible = "zmk,input-processor-temp-layer";
-        #input-processor-cells = <1>;
-        layer-id = <MOUSE>;
-        timeout-ms = <500>; // 離してから0.5秒間レイヤーを維持
-    };
-
-    /* LiNEA40のトラックボールデバイスにプロセッサを適用 */
-    &trackball {
-        input-processors = <&zip_temp_layer MOUSE>;
-    };
-
+    // 入力プロセッサの定義
     input_processors {
+        zip_temp_layer: zip_temp_layer {
+            compatible = "zmk,input-processor-temp-layer";
+            #input-processor-cells = <1>;
+            layer-id = <MOUSE>;
+            timeout-ms = <500>;
+        };
+
         zip_wheel_scaler: zip_wheel_scaler {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
@@ -40,6 +35,14 @@
             codes = <INPUT_REL_WHEEL>;
             track-remainders;
         };
+    };
+
+    // トラックボールデバイスにプロセッサを紐付け
+    // LiNEA40のトラックボールノード名に合わせた参照
+    trackball_input_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        input-processors = <&zip_temp_layer MOUSE>;
     };
 
     macros {
@@ -94,7 +97,7 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (自動起動レイヤー)
+        // 1: MOUSE (トラックボール操作時に自動起動)
         MOUSE_LAYER {
             bindings = <
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
