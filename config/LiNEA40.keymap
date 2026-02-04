@@ -45,7 +45,6 @@
         };
     };
 
-    // マクロ定義: BT切替とレイヤー変更を同期
     macros {
         sel_win: sel_win {
             compatible = "zmk,behavior-macro";
@@ -143,7 +142,7 @@
 >;
         };
 
-        // 7: iPad Default (修正: Windowsと同じく &to WIRELESS に統一)
+        // 7: iPad Default
         IPAD_DEF_LAYER {
             bindings = <
 &kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I   &kp O   &kp P
@@ -181,4 +180,10 @@
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
     };
+};
+
+// 修正ポイント: iPadレイヤー(7)をリスナーに追加し、自動的にMOUSEレイヤー(1)の機能を適用させる
+&trackball_peripheral_listener {
+    layers = <WIN_DEF IPAD_DEF>;
+    input-processors = <&zip_temp_layer MOUSE 500>;
 };
