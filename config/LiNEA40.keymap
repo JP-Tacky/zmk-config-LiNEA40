@@ -19,29 +19,25 @@
 #define IPAD_MARK 8
 
 / {
-    // 入力プロセッサの定義
+    /* 1. 入力プロセッサの定義 */
     input_processors {
+        compatible = "zmk,input-processors";
+
+        /* トラックボール操作時に一時的にレイヤーを切り替える設定 */
         zip_temp_layer: zip_temp_layer {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <1>;
             layer-id = <MOUSE>;
             timeout-ms = <500>;
         };
-
-        zip_wheel_scaler: zip_wheel_scaler {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>;
-            track-remainders;
-        };
     };
 
-    // トラックボールデバイスにプロセッサを紐付け
-    // LiNEA40のトラックボールノード名に合わせた参照
-    trackball_input_listener {
+    /* 2. トラックボール操作を監視するリスナー */
+    /* LiNEA40のハードウェア構成に合わせ、デバイス非依存の形式に近づけています */
+    trackball_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball>;
+        /* LiNEA40で定義されているポインティングデバイスを指定 */
+        device = <&trackball_peripheral>; 
         input-processors = <&zip_temp_layer MOUSE>;
     };
 
@@ -97,7 +93,7 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (トラックボール操作時に自動起動)
+        // 1: MOUSE (自動起動用: J/Lをマウスボタン化)
         MOUSE_LAYER {
             bindings = <
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
