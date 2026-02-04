@@ -97,7 +97,7 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (Automouse Layer)
+        // 1: MOUSE
         MOUSE_LAYER {
             bindings = <
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
@@ -174,10 +174,9 @@
 };
 
 &trackball_listener {
-    // トラックボールを動かすと自動でMOUSEレイヤー(1)へ。600ms停止で復帰。
     automouse {
         layers = <MOUSE>;
-        timeout-ms = <600>;
+        exit-delay-ms = <600>;
     };
 
     scroller {
