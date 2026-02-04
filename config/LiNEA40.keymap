@@ -83,13 +83,13 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (J/K/Lは通常キーに戻し、Mの横でクリック操作)
+        // 1: MOUSE (Shared between Win/iPad)
         MOUSE_LAYER {
             bindings = <
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans    &trans     &trans
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &kp J     &kp K     &kp L      &kp BACKSPACE
 &trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &mkp MB1  &mkp MB2   &kp ENTER
-&kp LCTRL  &kp LEFT_ALT  &to 0   &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE  &trans    &trans    &trans
+&trans     &trans        &to 0   &trans  &mt LSHIFT SPACE  &trans         &trans           &mt RSHIFT SPACE       &trans    &trans    &trans
 >;
         };
 
@@ -104,13 +104,13 @@
             sensor-bindings = <&re_kp LC(MINUS) LC(PLUS)>;
         };
 
-        // 3: CURSOR
+        // 3: CURSOR (Shared)
         CURSOR_LAYER {
             bindings = <
 &kp TILDE  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4                                        &kp NUMBER_9           &kp NUMBER_0   &kp MINUS  &kp EQUAL         &kp NON_US_BACKSLASH
 &trans     &trans        &trans        &trans        &kp NUMBER_5                                        &kp NUMBER_8           &kp SEMICOLON  &kp SQT    &kp LEFT_BRACKET  &kp RIGHT_BRACKET
 &trans     &trans        &trans        &trans        &kp NUMBER_6                                        &kp NUMBER_7           &trans         &kp COMMA  &kp PERIOD        &kp SLASH
-&kp LCTRL  &kp LEFT_ALT  &to 0         &trans        &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE  &trans         &trans     &trans
+&trans     &trans        &to 0         &trans        &mt LSHIFT SPACE  &trans         &trans           &mt RSHIFT SPACE       &trans         &trans     &trans
 >;
             sensor-bindings = <&re_kp LC(MINUS) LC(PLUS)>;
         };
