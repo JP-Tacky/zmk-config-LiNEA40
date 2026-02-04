@@ -17,7 +17,6 @@
 #define IPAD_MARK 8
 
 // mouse cursor
-
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
@@ -26,7 +25,6 @@
 };
 
 // mouse scroll
-
 &msc {
     delay-ms = <3>;
     trigger-period-ms = <3>;
@@ -36,16 +34,18 @@
 
 / {
     macros {
+        // Windowsへ切り替え: BT 0を選択し、WINレイヤーへ移動
         sel_win: sel_win {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 0 &to WIN_DEF>;
+            bindings = <&bt BT_SEL 0>, <&to WIN_DEF>;
         };
 
+        // iPadへ切り替え: BT 1を選択し、iPadレイヤーへ移動
         sel_ipad: sel_ipad {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 1 &to IPAD_DEF>;
+            bindings = <&bt BT_SEL 1>, <&to IPAD_DEF>;
         };
     };
 
@@ -62,7 +62,6 @@
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&msc>, <&msc>;
-
             tap-ms = <20>;
         };
     };
@@ -71,7 +70,6 @@
         compatible = "zmk,keymap";
 
         // 0: Windows Default
-
         default_layer {
             bindings = <
 &kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I         &kp O     &kp P
@@ -79,12 +77,10 @@
 &kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M  &mkp MB1      &mkp MB2  &kp ENTER
 &kp LCTRL  &kp LALT  &to 1  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE         &to WIRELESS  &trans    &kp LEFT_WIN
             >;
-
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (Shared between Win/iPad)
-
+        // 1: MOUSE (Shared)
         MOUSE_LAYER {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                              &trans            &trans  &trans    &trans    &trans
@@ -95,7 +91,6 @@
         };
 
         // 2: Windows MARK
-
         WIN_MARK_LAYER {
             bindings = <
 &kp ESC       &kp F1        &kp F2  &kp F3  &kp F4                                        &kp F9                 &kp F10         &kp F11       &kp F12    &trans
@@ -103,12 +98,10 @@
 &kp CAPSLOCK  &trans        &trans  &trans  &kp F6                                        &kp F7                 &kp LEFT_ARROW  &kp DOWN      &kp RIGHT  &trans
 &kp LCTRL     &kp LEFT_ALT  &to 0   &trans  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 2 LANG1  &mt RIGHT_SHIFT SPACE                  &trans        &trans     &trans
             >;
-
             sensor-bindings = <&re_kp LC(MINUS) LC(PLUS)>;
         };
 
         // 3: CURSOR (Shared)
-
         CURSOR_LAYER {
             bindings = <
 &kp TILDE  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4                        &kp NUMBER_9      &kp NUMBER_0   &kp MINUS  &kp EQUAL         &kp NON_US_BACKSLASH
@@ -116,44 +109,38 @@
 &trans     &trans        &trans        &trans        &kp NUMBER_6                        &kp NUMBER_7      &trans         &kp COMMA  &kp PERIOD        &kp SLASH
 &trans     &trans        &to 0         &trans        &mt LSHIFT SPACE  &trans    &trans  &mt RSHIFT SPACE                 &trans     &trans            &trans
             >;
-
             sensor-bindings = <&re_kp LC(MINUS) LC(PLUS)>;
         };
 
-        // 6: WIRELESS
-
+        // 6: WIRELESS (Q: Win / W: iPad)
         WIRELESS_LAYER {
             bindings = <
-&sel_win      &sel_ipad  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_CLR                    &trans  &trans  &trans  &trans  &trans
-&to WIN_DEF   &trans     &trans        &trans        &trans                        &trans  &trans  &trans  &trans  &trans
-&to IPAD_DEF  &trans     &trans        &trans        &trans                        &trans  &trans  &trans  &trans  &trans
-&trans        &trans     &trans        &trans        &trans      &trans    &trans  &trans          &trans  &trans  &trans
+&sel_win    &sel_ipad  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_CLR                    &trans  &trans  &trans  &trans  &trans
+&to WIN_DEF &trans     &trans        &trans        &trans                        &trans  &trans  &trans  &trans  &trans
+&to IPAD_DEF &trans    &trans        &trans        &trans                        &trans  &trans  &trans  &trans  &trans
+&trans      &trans     &trans        &trans        &trans      &trans    &trans  &trans          &trans  &trans  &trans
             >;
         };
 
         // 7: iPad Default
-
         IPAD_DEF_LAYER {
             bindings = <
 &kp Q     &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I         &kp O     &kp P
 &kp A     &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J  &kp K         &kp L     &kp BACKSPACE
 &kp Z     &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M  &mkp MB1      &mkp MB2  &kp ENTER
-&kp LCMD  &kp LALT  &to 1  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 6 LANG1  &mt RIGHT_SHIFT SPACE         &to WIRELESS  &trans    &kp LCTRL
+&kp LCMD  &kp LALT  &to 1  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE         &to WIRELESS  &trans    &kp LCTRL
             >;
-
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         // 8: iPad MARK
-
         IPAD_MARK_LAYER {
             bindings = <
 &kp ESC       &kp F1        &kp F2  &kp F3  &kp F4                                        &kp F9                 &kp F10         &kp F11       &kp F12    &trans
 &kp TAB       &trans        &trans  &trans  &kp F5                                        &kp F8                 &trans          &kp UP_ARROW  &trans     &trans
 &kp CAPSLOCK  &trans        &trans  &trans  &kp F6                                        &kp F7                 &kp LEFT_ARROW  &kp DOWN      &kp RIGHT  &trans
-&kp LCMD      &kp LEFT_ALT  &to 7   &trans  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 6 LANG1  &mt RIGHT_SHIFT SPACE                  &trans        &trans     &trans
+&kp LCMD      &kp LEFT_ALT  &to 7   &trans  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE                  &trans        &trans     &trans
             >;
-
             sensor-bindings = <&re_kp LG(MINUS) LG(PLUS)>;
         };
     };
