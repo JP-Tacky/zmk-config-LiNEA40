@@ -44,9 +44,20 @@
             codes = <INPUT_REL_WHEEL>;
             track-remainders;
         };
+        // Windows用：レイヤー1(MOUSE)へ一時移動
+        zip_temp_layer_win: zip_temp_layer_win {
+            compatible = "zmk,input-processor-temp-layer";
+            #input-processor-cells = <2>;
+            layer = <MOUSE>;
+        };
+        // iPad用：レイヤー9(IPAD_MOUSE)へ一時移動
+        zip_temp_layer_ipad: zip_temp_layer_ipad {
+            compatible = "zmk,input-processor-temp-layer";
+            #input-processor-cells = <2>;
+            layer = <IPAD_MOUSE>;
+        };
     };
 
-    // マクロ定義: BT切替とレイヤー変更を同期
     macros {
         sel_win: sel_win {
             compatible = "zmk,behavior-macro";
@@ -193,16 +204,16 @@
             <&zip_xy_to_scroll_mapper>;
     };
 
-    // 自動レイヤー切り替え（Automouse）設定
-    // Windows系レイヤーにいる時はレイヤー1へ
+    // 自動レイヤー切り替え（Automouse）
+    // Windows系レイヤー時はレイヤー1へ(100ms入力なしで復帰)
     automouse_win {
         layers = <WIN_DEF WIN_MARK CURSOR>;
-        target-layer = <MOUSE>;
+        input-processors = <&zip_temp_layer_win 100 0>;
     };
 
-    // iPad系レイヤーにいる時はレイヤー9へ
+    // iPad系レイヤー時はレイヤー9へ
     automouse_ipad {
         layers = <IPAD_DEF IPAD_MARK>;
-        target-layer = <IPAD_MOUSE>;
+        input-processors = <&zip_temp_layer_ipad 100 0>;
     };
 };
