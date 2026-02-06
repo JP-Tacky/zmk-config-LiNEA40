@@ -48,13 +48,13 @@
         zip_temp_layer_win: zip_temp_layer_win {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <2>;
-            layer = <MOUSE>;
+            layers = <MOUSE>; // エラー回避のため 'layer' から 'layers' に変更
         };
         // iPad用：レイヤー9(IPAD_MOUSE)へ一時移動
         zip_temp_layer_ipad: zip_temp_layer_ipad {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <2>;
-            layer = <IPAD_MOUSE>;
+            layers = <IPAD_MOUSE>; // エラー回避のため 'layer' から 'layers' に変更
         };
     };
 
@@ -205,13 +205,11 @@
     };
 
     // 自動レイヤー切り替え（Automouse）
-    // Windows系レイヤー時はレイヤー1へ(100ms入力なしで復帰)
     automouse_win {
         layers = <WIN_DEF WIN_MARK CURSOR>;
         input-processors = <&zip_temp_layer_win 100 0>;
     };
 
-    // iPad系レイヤー時はレイヤー9へ
     automouse_ipad {
         layers = <IPAD_DEF IPAD_MARK>;
         input-processors = <&zip_temp_layer_ipad 100 0>;
