@@ -17,7 +17,6 @@
 #define WIRELESS 6
 #define IPAD_DEF 7
 #define IPAD_MARK 8
-#define IPAD_MOUSE 9
 
 // mouse cursor
 &mmv {
@@ -43,18 +42,6 @@
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_WHEEL>;
             track-remainders;
-        };
-        // Windows用：レイヤー1(MOUSE)へ一時移動
-        zip_temp_layer_win: zip_temp_layer_win {
-            compatible = "zmk,input-processor-temp-layer";
-            #input-processor-cells = <2>;
-            layers = <MOUSE>; // エラー回避のため 'layer' から 'layers' に変更
-        };
-        // iPad用：レイヤー9(IPAD_MOUSE)へ一時移動
-        zip_temp_layer_ipad: zip_temp_layer_ipad {
-            compatible = "zmk,input-processor-temp-layer";
-            #input-processor-cells = <2>;
-            layers = <IPAD_MOUSE>; // エラー回避のため 'layer' から 'layers' に変更
         };
     };
 
@@ -111,7 +98,6 @@
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        // 1: MOUSE (Windows)
         // 1: MOUSE
         MOUSE_LAYER {
             bindings = <
@@ -157,14 +143,12 @@
 >;
         };
 
-        // 7: iPad Default
         // 7: iPad Default (修正: Windowsと同じく &to WIRELESS に統一)
         IPAD_DEF_LAYER {
             bindings = <
 &kp Q      &kp W     &kp E  &kp R            &kp T                                         &kp Y                  &kp U  &kp I   &kp O   &kp P
 &kp A      &kp S     &kp D  &kp F            &kp G                                         &kp H                  &kp J  &kp K   &kp L   &kp BACKSPACE
 &kp Z      &kp X     &kp C  &kp V            &kp B                                         &kp N                  &kp M  &trans  &trans  &kp ENTER
-&kp LCMD   &kp LALT  &to 9  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE  &to WIRELESS &trans  &kp LCTRL
 &kp LCMD   &kp LALT  &to 1  &msc MOVE_Y(10)  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE  &to WIRELESS &trans  &kp LCTRL
 >;
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -179,16 +163,6 @@
 &kp LCMD      &kp LEFT_ALT  &to 7   &trans  &mt LSHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE  &trans          &trans        &trans
 >;
             sensor-bindings = <&re_kp LG(MINUS) LG(PLUS)>;
-        };
-
-        // 9: IPAD MOUSE
-        IPAD_MOUSE_LAYER {
-            bindings = <
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &trans
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &mkp MB1  &trans  &mkp RCLK  &kp BACKSPACE
-&trans     &trans        &trans  &trans  &trans                                            &trans                 &trans    &trans  &trans     &kp ENTER
-&kp LCMD   &kp LEFT_ALT  &to 7   &trans  &mt LEFT_SHIFT SPACE  &lt 3 LANG2    &lt 8 LANG1  &mt RIGHT_SHIFT SPACE  &trans    &trans  &kp LCTRL
->;
         };
     };
 };
@@ -206,16 +180,5 @@
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_xy_to_scroll_mapper>;
-    };
-
-    // 自動レイヤー切り替え（Automouse）
-    automouse_win {
-        layers = <WIN_DEF WIN_MARK CURSOR>;
-        input-processors = <&zip_temp_layer_win 100 0>;
-    };
-
-    automouse_ipad {
-        layers = <IPAD_DEF IPAD_MARK>;
-        input-processors = <&zip_temp_layer_ipad 100 0>;
     };
 };
