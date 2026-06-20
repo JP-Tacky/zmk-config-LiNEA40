@@ -53,13 +53,12 @@
 };
 
 &trackball_listener {
+    // ここに直接書くのが正解です！
+    input-processors = <&zip_temp_layer 1 1000>;
+
     scroller {
         layers = <SCROLL>;
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_xy_to_scroll_mapper>;
-    };
-
-    automouse {
-        input-processors = <&zip_temp_layer 1 1000>;
     };
 };
 
