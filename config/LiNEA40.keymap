@@ -59,7 +59,7 @@
     };
 
     automouse {
-        input-processors = <&zip_temp_layer MOUSE 1000>;
+        input-processors = <&zip_temp_layer 1 1000>;
     };
 };
 
